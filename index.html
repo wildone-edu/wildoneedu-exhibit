@@ -83,7 +83,6 @@
   .logo { width: 200px; margin-bottom: 18px; }
   .masthead h1 { font-size: 44px; font-weight: 900; line-height: 1.3; margin: 0 0 12px; }
   .masthead p.lede { font-size: 17px; margin: 0; max-width: 46em; }
-  .masthead-art { position: absolute; right: 24px; bottom: 0; width: 180px; pointer-events: none; }
 
   /* ===== 開館狀態小標籤（右上角藥丸，點按或滑過展開） ===== */
   .status-widget { position: absolute; top: 40px; right: 24px; z-index: 25; }
@@ -318,9 +317,10 @@
 
   /* ===== 手機 ===== */
   @media (max-width: 720px) {
+    .br-desktop { display: none; }
+    .events-toolbar .eyebrow, .exhibit-intro > .eyebrow { font-size: 16px; }
     .masthead { padding: 24px 16px 20px; }
     .masthead__inner { padding-right: 0; }
-    .masthead-art { display: none; }
     .logo { width: 150px; margin-bottom: 14px; }
     .masthead h1 { font-size: 30px; }
     .masthead p.lede { font-size: 15.5px; }
@@ -334,6 +334,100 @@
     .section { padding: 22px 18px; margin-bottom: 16px; }
     .section h2 { font-size: 21px; }
     footer.site-foot { padding: 36px 16px 28px; }
+  }
+  /* =========================================================
+     電腦版（螢幕寬度 721px 以上）
+     ・頁首置中、使用整個版面寬度
+     ・開館狀態改回直式膠囊，貼在畫面最右側，滑過或點按往左展開
+     ・分頁改為三顆獨立按鈕
+     ・整體字級放大
+     手機版維持上方設定，不受這一段影響。
+     ========================================================= */
+  @media (min-width: 721px) {
+    :root { --w: 1160px; }
+    html { font-size: 17px; }
+    body { font-size: 18px; }
+
+    /* 頁首 */
+    .masthead { max-width: none; padding: 48px 5rem 40px; text-align: center; }
+    .masthead__inner { max-width: 48rem; margin: 0 auto; padding-right: 0; }
+    .logo { width: 220px; margin: 0 auto 20px; }
+    .masthead .eyebrow { justify-content: center; font-size: 15px; }
+    .masthead h1 { font-size: 54px; }
+    .masthead p.lede { font-size: 19.5px; margin: 0 auto; }
+
+    /* 開館狀態：直式膠囊 */
+    .status-widget { top: 1rem; right: 1rem; display: flex; align-items: flex-start; }
+    .status-widget__tab {
+      flex-direction: column; justify-content: center; gap: .6rem;
+      width: 2.9rem; height: auto; min-height: 11.5rem; padding: 1rem .35rem;
+      border-radius: .75rem; font-size: 16px; box-shadow: var(--shadow);
+    }
+    .status-widget__tab-text { writing-mode: vertical-rl; text-orientation: upright; letter-spacing: .14em; line-height: 1.2; }
+    .status-widget__tab-chev { transform: none; }
+    .status-widget__panel {
+      position: static; width: 0; margin-right: 0; overflow: hidden;
+      transform: none; transition: width .28s ease, opacity .2s ease, margin .28s ease, visibility .28s;
+    }
+    .status-widget__panel-inner { width: 15rem; padding: 18px 20px; }
+    .status-widget__date b { font-size: 1.7rem; }
+    .status-widget__date span, .status-widget__facts li { font-size: 15px; }
+    .status-widget__state { font-size: 17px; }
+    .status-widget.is-expanded .status-widget__panel { width: 15rem; margin-right: 8px; }
+    .status-widget.is-expanded .status-widget__tab-chev { transform: rotate(180deg); }
+
+    /* 分頁：三顆按鈕 */
+    .tabbar-wrap { padding: 14px 24px; border-bottom: 1px solid var(--line); }
+    .tabbar { max-width: calc(var(--w) - 48px); background: none; padding: 0; gap: 12px; }
+    .tab {
+      background: var(--card); border: 1.5px solid var(--line);
+      padding: 13px 12px; font-size: 19px; font-weight: 700;
+    }
+    .tab:hover { border-color: var(--orange); }
+    .tab[aria-selected="true"] { background: var(--red); border-color: var(--red); color: #fff; }
+
+    /* 內容區 */
+    main { padding: 36px 24px 72px; }
+    .section { padding: 44px 52px; margin-bottom: 26px; }
+    .section__head { margin-bottom: 22px; }
+    .pin { width: 38px; height: 38px; font-size: 17px; }
+    .section h2 { font-size: 30px; }
+    /* 最新活動不再縮窄，和上方分頁按鈕左右切齊 */
+    #tab-events .section { max-width: none; }
+    /* 「最新活動」「當期特展」區塊小標放大 */
+    .events-toolbar .eyebrow, .exhibit-intro > .eyebrow { font-size: 20px; gap: 14px; }
+    .events-toolbar .eyebrow::before, .exhibit-intro > .eyebrow::before { width: 38px; height: 6px; }
+    .event-row { padding-left: .5rem; padding-right: .5rem; }
+    .exhibit-intro { max-width: 52rem; }
+    .highlight-grid { gap: 20px; }
+    .highlight-card { padding: 24px 28px; }
+    .highlight-card h3 { font-size: 20px; }
+    .highlight-card p { font-size: 17.5px; }
+    .gallery { gap: 16px; }
+    .info-card { padding: 28px 34px; }
+    .info-card dt { font-size: 15px; }
+    .info-card dd { font-size: 18.5px; }
+    .date-badge .eyebrow { font-size: 14px; }
+    .date-badge b { font-size: 20px; }
+    .btn { font-size: 17px; min-height: 46px; padding: 0 24px; }
+    .notice { font-size: 16px; }
+    .modal__date { font-size: 16.5px; }
+    .modal__facts { font-size: 17px; }
+    .modal__facts b { font-size: 15px; }
+
+    /* 頁尾 */
+    .site-foot__eyebrow { font-size: 15px; }
+    .foot-grid dt { font-size: 14.5px; }
+    .foot-grid dd { font-size: 17.5px; }
+    .site-foot__about { font-size: 17px; }
+    .site-foot__legal { font-size: 14.5px; }
+  }
+  /* 電腦版＋滑鼠：滑過開館膠囊就往左展開 */
+  @media (min-width: 721px) and (hover: hover) and (pointer: fine) {
+    .status-widget:hover .status-widget__panel,
+    .status-widget:focus-within .status-widget__panel { width: 15rem; margin-right: 8px; }
+    .status-widget:hover .status-widget__tab-chev,
+    .status-widget:focus-within .status-widget__tab-chev { transform: rotate(180deg); }
   }
 </style>
 </head>
@@ -363,9 +457,8 @@
       <a class="eyebrow-link" href="https://www.wildonetaiwan.org/" target="_blank" rel="noopener">WILDONE 野灣 <span aria-hidden="true">↗</span></a>
     </p>
     <h1>野灣保育探索館</h1>
-    <p class="lede">位於池上車站步行兩分鐘的保育教育空間，用標本、故事與特展，帶你認識野生動物救傷背後的議題。</p>
+    <p class="lede">位於池上車站步行兩分鐘的保育教育空間，<br class="br-desktop" />用標本、故事與特展，帶你認識野生動物救傷背後的議題。</p>
   </div>
-  <img class="masthead-art" src="images/illust/eagle.png" alt="" aria-hidden="true" />
 </header>
 
 <div class="tabbar-wrap">
