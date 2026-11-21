@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>野灣保育探索館</title>
+<meta name="description" content="野灣保育探索館 — 常設展、當期特展與最新活動一次看" />
+
+<!-- 分享縮圖（Open Graph／Twitter Card）：LINE、Facebook、iMessage 等
+     App 分享網址時，會抓這幾個標籤來顯示縮圖與說明文字。
+     og:url 需與 GitHub Pages 實際網址相同（儲存庫：wildoneedu-exhibit）。 -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="野灣保育探索館" />
+<meta property="og:title" content="野灣保育探索館" />
+<meta property="og:description" content="位於池上車站步行兩分鐘的保育教育空間，常設展、當期特展與最新活動一次看。" />
+<meta property="og:image" content="https://www.wildonetaiwan.org/sites/default/files/styles/w960/public/news/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-01-09%20111103.png?itok=yCHFI4TV" />
+<meta property="og:image:width" content="960" />
+<meta property="og:image:height" content="690" />
+<meta property="og:url" content="https://wildone-edu.github.io/wildoneedu-exhibit/" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="野灣保育探索館" />
+<meta name="twitter:description" content="位於池上車站步行兩分鐘的保育教育空間，常設展、當期特展與最新活動一次看。" />
+<meta name="twitter:image" content="https://www.wildonetaiwan.org/sites/default/files/styles/w960/public/news/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-01-09%20111103.png?itok=yCHFI4TV" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+  /* =========================================================
+     配色與字體：沿用「野灣教育活動列表」視覺風格
+     ========================================================= */
+  :root {
+    --bg: #f6f0e7;        /* 米色底 */
+    --card: #ffffff;      /* 白卡片 */
+    --ink: #261f1b;       /* 主要文字 */
+    --brown: #724f38;     /* 次要文字、標籤 */
+    --muted: #9a928b;     /* 說明文字 */
+    --line: #e9e0d4;      /* 分隔線、框線 */
+    --orange: #ffa861;    /* 淺橘 */
+    --red: #e36236;       /* 橘紅（主色） */
+    --red-dark: #984929;  /* 深橘咖啡（連結） */
+    --red-soft: #fdf1ea;  /* 淡橘底 */
+    --peach: #fbe3d6;
+    --green: #4f8a2f;     /* 開館中 */
+    --footer-bg: #3d2c21;
+    --footer-fg: #f6f0e7;
+    --footer-muted: #cdbba6;
+    --footer-line: rgba(246,240,231,.16);
+    --radius: 18px;
+    --w: 1080px;
+    --shadow: 0 12px 28px -14px rgba(38, 31, 27, .35);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { color: var(--ink); margin: 0; font-weight: 700; letter-spacing: .02em; text-wrap: balance; }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  button { font: inherit; }
+  :focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+
+  .eyebrow {
+    display: flex; align-items: center; gap: 12px; margin: 0 0 8px;
+    font-size: 14px; font-weight: 700; letter-spacing: .08em; color: var(--red-dark);
+  }
+  .eyebrow::before { content: ""; flex: 0 0 auto; width: 32px; height: 5px; border-radius: 3px; background: var(--orange); }
+  .eyebrow-link { text-decoration: none; display: inline-flex; align-items: center; gap: .3rem; }
+  .eyebrow-link:hover, .eyebrow-link:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ===== 頁首 ===== */
+  .masthead { position: relative; max-width: var(--w); margin: 0 auto; padding: 40px 24px 28px; }
+  .masthead__inner { padding-right: 220px; }
+  .logo { width: 200px; margin-bottom: 18px; }
+  .masthead h1 { font-size: 44px; font-weight: 900; line-height: 1.3; margin: 0 0 12px; }
+  .masthead p.lede { font-size: 17px; margin: 0; max-width: 46em; }
+  .masthead-art { position: absolute; right: 24px; bottom: 0; width: 180px; pointer-events: none; }
+
+  /* ===== 開館狀態小標籤（右上角藥丸，點按或滑過展開） ===== */
+  .status-widget { position: absolute; top: 40px; right: 24px; z-index: 25; }
+  .status-widget__tab {
+    display: flex; align-items: center; gap: .45rem;
+    height: 38px; padding: 0 16px; border-radius: 999px;
+    background: var(--brown); color: #fff; cursor: default;
+    font-size: 14px; font-weight: 700; letter-spacing: .04em;
+  }
+  .status-widget.is-open .status-widget__tab { background: var(--green); }
+  .status-widget.is-soon .status-widget__tab,
+  .status-widget.is-lunch .status-widget__tab { background: var(--red); }
+  .status-widget__tab-icon { font-size: 15px; line-height: 1; }
+  .status-widget__tab-chev { font-size: 12px; line-height: 1; opacity: .85; transform: rotate(-90deg); transition: transform .2s ease; }
+
+  .status-widget__panel {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    width: 13.5rem; background: var(--card); border-radius: 14px; box-shadow: var(--shadow);
+    opacity: 0; visibility: hidden; transform: translateY(-4px);
+    transition: opacity .2s ease, transform .2s ease, visibility .2s;
+  }
+  /* 只有滑鼠裝置用 hover / focus 展開；觸控裝置交給 JS 的 .is-expanded 切換 */
+  @media (hover: hover) and (pointer: fine) {
+    .status-widget:hover .status-widget__panel,
+    .status-widget:focus-within .status-widget__panel { opacity: 1; visibility: visible; transform: none; }
+    .status-widget:hover .status-widget__tab-chev,
+    .status-widget:focus-within .status-widget__tab-chev { transform: rotate(90deg); }
+  }
+  .status-widget.is-expanded .status-widget__panel { opacity: 1; visibility: visible; transform: none; }
+  .status-widget.is-expanded .status-widget__tab-chev { transform: rotate(90deg); }
+
+  .status-widget__panel-inner { padding: 16px 18px; }
+  .status-widget__date { display: flex; align-items: baseline; gap: .4rem; margin: 0 0 .5rem; }
+  .status-widget__date b { font-size: 1.5rem; font-weight: 900; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1; }
+  .status-widget__date span { font-size: 13px; color: var(--brown); }
+  .status-widget__state { display: flex; align-items: center; gap: .45rem; font-weight: 700; font-size: 15px; margin: 0 0 .7rem; }
+  .status-widget__state-dot { width: .55rem; height: .55rem; border-radius: 50%; flex: 0 0 auto; background: var(--brown); }
+  .status-widget.is-open .status-widget__state-dot { background: var(--green); }
+  .status-widget.is-soon .status-widget__state-dot,
+  .status-widget.is-lunch .status-widget__state-dot { background: var(--red); }
+  .status-widget__facts { list-style: none; margin: 0; padding: .7rem 0 0; border-top: 1px solid var(--line); display: grid; gap: .45rem; }
+  .status-widget__facts li { display: flex; gap: .5rem; font-size: 13.5px; }
+  .status-widget__facts b { flex: 0 0 3rem; color: var(--brown); font-weight: 700; }
+  .status-widget__facts span { font-variant-numeric: tabular-nums; }
+
+  /* ===== 分頁按鈕（藥丸切換） ===== */
+  .tabbar-wrap {
+    position: sticky; top: 0; z-index: 20;
+    padding: 12px 24px;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: saturate(140%) blur(6px);
+  }
+  .tabbar {
+    max-width: calc(var(--w) - 48px); margin: 0 auto;
+    display: flex; gap: 4px; padding: 4px;
+    background: var(--card); border-radius: 999px;
+  }
+  .tab {
+    flex: 1 1 0; border: none; background: none; cursor: pointer;
+    color: var(--brown); font-size: 16px; font-weight: 500;
+    padding: 9px 12px; border-radius: 999px; white-space: nowrap; text-align: center;
+    transition: color .15s, background .15s;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab[aria-selected="true"] { background: var(--red); color: #fff; font-weight: 700; }
+
+  /* ===== 共用版面 ===== */
+  main { max-width: var(--w); margin: 0 auto; padding: 20px 24px 64px; }
+  .panel { display: none; }
+  .panel.is-active { display: block; animation: fade .35s ease; }
+  @media (prefers-reduced-motion: reduce) { .panel.is-active { animation: none; } }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .section { background: var(--card); border-radius: var(--radius); padding: 32px 36px; margin-bottom: 22px; }
+  #tab-events .section { max-width: 46rem; margin-left: auto; margin-right: auto; }
+  .section__head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .pin {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 50%; flex: 0 0 auto;
+    background: var(--red); color: #fff; font-size: 15px; font-weight: 700;
+  }
+  .section h2 { font-size: 24px; font-weight: 900; }
+  .section h3 { color: var(--ink); }
+
+  .row { display: grid; grid-template-columns: 1.1fr 1fr; gap: 2rem; align-items: center; }
+  .row.reverse .row__figure { order: 2; }
+  @media (max-width: 720px) { .row, .row.reverse .row__figure { grid-template-columns: 1fr; order: unset; } }
+  .row__figure img { width: 100%; border-radius: 12px; }
+  .row p { margin: 0; }
+  .row p + p { margin-top: .75rem; }
+
+  figure { margin: 0; }
+  figcaption { margin-top: .5rem; font-size: 13px; color: var(--muted); }
+  .hero-figure img { width: 100%; border-radius: 12px; }
+  /* 特展：主視覺、亮點卡片、展場照片 */
+  .exhibit-hero img { width: 100%; border-radius: 12px; margin-bottom: 1.75rem; }
+  .exhibit-intro { max-width: 46rem; }
+  .exhibit-intro p { margin: 0; }
+  .exhibit-intro p + p { margin-top: .75rem; }
+  .highlight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 720px) { .highlight-grid { grid-template-columns: 1fr; } }
+  .highlight-card { background: var(--bg); border-radius: 14px; padding: 20px 22px; }
+  .highlight-card h3 { font-size: 17px; margin-bottom: .4rem; }
+  .highlight-card h3::before { content: "▸ "; color: var(--red); }
+  .highlight-card p { margin: 0; font-size: 15.5px; }
+  .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (max-width: 560px) { .gallery { grid-template-columns: 1fr; } }
+  .gallery a { display: block; border-radius: 12px; overflow: hidden; aspect-ratio: 4 / 3; background: var(--bg); }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform .25s; }
+  .gallery a:hover img { transform: scale(1.03); }
+
+  /* 特展資訊卡 */
+  .info-card {
+    margin: 0; background: var(--red-soft); color: var(--ink);
+    border-radius: 14px; padding: 24px 28px;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem 2rem;
+  }
+  @media (max-width: 560px) { .info-card { grid-template-columns: 1fr; } }
+  .info-card dt { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--red-dark); margin-bottom: .2rem; }
+  .info-card dd { margin: 0; font-size: 16px; font-variant-numeric: tabular-nums; }
+  .info-card .full { grid-column: 1 / -1; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: .4rem; min-height: 40px; white-space: nowrap;
+    background: var(--red); color: #fff; border: none; border-radius: 999px;
+    padding: 0 20px; font-weight: 700; font-size: 15px; cursor: pointer; text-decoration: none;
+    transition: background .15s;
+  }
+  .btn:hover { background: #cf532a; }
+  .btn.ghost { background: #fff; color: var(--red-dark); border: 1.5px solid var(--red); }
+  .btn.ghost:hover { background: var(--red-soft); }
+
+  /* 展期標籤 */
+  .date-badge {
+    display: inline-flex; flex-direction: column; align-items: flex-start; gap: .1rem;
+    background: var(--bg); border-radius: 12px; padding: .55rem 1rem; margin: 1rem 0;
+  }
+  .date-badge .eyebrow { margin: 0; font-size: 13px; }
+  .date-badge .eyebrow::before { display: none; }
+  .date-badge b { font-variant-numeric: tabular-nums; color: var(--ink); font-size: 17px; }
+
+  .highlight-list { list-style: none; margin: .75rem 0 0; padding: 0; display: grid; gap: .55rem; }
+  .highlight-list li { padding-left: 1.2rem; position: relative; }
+  .highlight-list li::before { content: "›"; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+
+  /* ===== 最新活動 ===== */
+  .events-toolbar { margin-bottom: 1rem; }
+  .notice {
+    border: 1.5px dashed var(--line); border-radius: 12px;
+    padding: .9rem 1.1rem; color: var(--brown); font-size: 14px; margin-bottom: 1.5rem;
+  }
+  .notice strong { color: var(--red-dark); }
+
+  .event-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .event-list li { border-bottom: 1px solid var(--line); }
+  .event-row {
+    width: 100%; display: flex; align-items: center;
+    gap: clamp(.9rem, 3vw, 1.4rem); padding: clamp(1rem, 3vw, 1.4rem) .25rem;
+    background: none; border: none; text-align: left; cursor: pointer; color: inherit;
+  }
+  .event-row:hover .event-row__title { color: var(--red); }
+  .event-row:focus-visible { outline: 3px solid var(--orange); outline-offset: -3px; }
+  .event-row__date {
+    flex: 0 0 auto; width: clamp(3.9rem, 11vw, 4.8rem);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .1rem;
+    padding: .65rem .3rem; border-radius: 12px; background: var(--red); color: #fff;
+  }
+  .event-row__date b { font-size: clamp(1.2rem, 4.2vw, 1.45rem); font-weight: 900; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .event-row__date span { font-size: clamp(.72rem, 2.4vw, .82rem); opacity: .9; }
+  .event-row__img {
+    flex: 0 0 auto; width: clamp(4rem, 12vw, 5.5rem); height: clamp(4rem, 12vw, 5.5rem);
+    border-radius: 12px; object-fit: cover; background: var(--bg);
+  }
+  .event-row__main { flex: 1 1 auto; min-width: 0; }
+  .event-row__title { font-weight: 700; font-size: clamp(1.05rem, 3.4vw, 1.2rem); line-height: 1.45; color: var(--ink); transition: color .15s; }
+  .event-row__time { display: block; margin-top: .3rem; font-size: clamp(.85rem, 2.6vw, .95rem); color: var(--brown); font-variant-numeric: tabular-nums; }
+  .event-row__chev { flex: 0 0 auto; color: var(--muted); font-size: clamp(1.15rem, 3vw, 1.4rem); }
+
+  .empty-state { text-align: center; padding: 2.5rem 1rem; color: var(--brown); }
+  .empty-state::before {
+    content: ""; display: block; width: 140px; height: 140px; margin: 0 auto 10px;
+    background: url("images/illust/squirrel.png") center / contain no-repeat;
+  }
+
+  /* 活動詳情視窗 */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(38,31,27,.55);
+    display: flex; align-items: flex-end; justify-content: center; z-index: 100; padding: 0;
+  }
+  @media (min-width: 640px) { .modal-backdrop { align-items: center; padding: 1.5rem; } }
+  .modal-backdrop[hidden] { display: none; }
+  .modal {
+    background: var(--card); color: var(--ink);
+    width: 100%; max-width: 34rem; max-height: 90vh; overflow-y: auto;
+    border-radius: var(--radius) var(--radius) 0 0; box-shadow: var(--shadow);
+  }
+  @media (min-width: 640px) { .modal { border-radius: var(--radius); } }
+  .modal__img { width: 100%; max-height: 60vh; object-fit: contain; background: var(--bg); }
+  .modal__body { padding: 1.5rem 1.6rem 2rem; }
+  .modal__close {
+    position: absolute; top: .8rem; right: .8rem; width: 2.1rem; height: 2.1rem; border-radius: 50%;
+    background: rgba(38,31,27,.6); color: #fff; border: none; font-size: 1.1rem; cursor: pointer; line-height: 1;
+  }
+  .modal__wrap { position: relative; }
+  .modal__title { font-size: 1.4rem; margin-bottom: .35rem; }
+  .modal__date { color: var(--red-dark); font-weight: 700; font-size: 15px; margin: 0 0 1.1rem; font-variant-numeric: tabular-nums; }
+  .modal__brief { font-size: 1rem; margin: 0 0 1.1rem; }
+  .modal__facts { list-style: none; margin: 0 0 1.1rem; padding: 0; display: grid; gap: .5rem; font-size: 15px; }
+  .modal__facts li { display: flex; gap: .5rem; }
+  .modal__facts b { flex: 0 0 4rem; color: var(--brown); font-weight: 700; font-size: 14px; }
+  .modal__actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-top: .5rem; }
+
+  /* ===== 頁尾：參觀資訊＋聯絡方式 ===== */
+  footer.site-foot { background: var(--footer-bg); color: var(--footer-fg); padding: 48px 24px 36px; }
+  .site-foot__inner { max-width: calc(var(--w) - 48px); margin: 0 auto; }
+  .site-foot__eyebrow {
+    display: flex; align-items: center; gap: 12px; margin: 0 0 1rem;
+    font-size: 14px; font-weight: 700; letter-spacing: .08em; color: var(--orange);
+  }
+  .site-foot__eyebrow::before { content: ""; width: 32px; height: 5px; border-radius: 3px; background: var(--orange); }
+  .foot-grid { margin: 0 0 1.5rem; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem 1.5rem; }
+  @media (max-width: 720px) { .foot-grid { grid-template-columns: repeat(2, 1fr); } }
+  .foot-grid dt { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--footer-muted); margin-bottom: .3rem; }
+  .foot-grid dd { margin: 0; font-size: 15px; font-variant-numeric: tabular-nums; }
+  .site-foot__divider { border-top: 1px solid var(--footer-line); margin: 2rem 0 1.5rem; }
+  .site-foot__contact { display: flex; flex-direction: column; gap: .4rem; align-items: flex-start; margin-bottom: 2rem; }
+  .site-foot__contact strong { font-size: 1.1rem; margin-bottom: .1rem; }
+  .site-foot__contact a, .site-foot__about a { color: var(--footer-fg); text-decoration: underline; text-underline-offset: 3px; }
+  .site-foot__contact a:hover, .site-foot__about a:hover { color: var(--orange); }
+  .site-foot__about { margin: 0 0 1.5rem; font-size: 15px; }
+  .site-foot__legal { border-top: 1px solid var(--footer-line); padding-top: 1.5rem; margin: 0; font-size: 13px; color: var(--footer-muted); }
+
+  /* ===== 手機 ===== */
+  @media (max-width: 720px) {
+    .masthead { padding: 24px 16px 20px; }
+    .masthead__inner { padding-right: 0; }
+    .masthead-art { display: none; }
+    .logo { width: 150px; margin-bottom: 14px; }
+    .masthead h1 { font-size: 30px; }
+    .masthead p.lede { font-size: 15.5px; }
+    .status-widget { top: 24px; right: 16px; }
+    .status-widget__tab { height: 34px; padding: 0 12px; font-size: 13px; }
+    .status-widget__panel { width: 11.5rem; }
+    .tabbar-wrap { padding: 10px 16px; }
+    .tabbar { max-width: none; }
+    .tab { font-size: 15px; padding: 8px 4px; }
+    main { padding: 12px 16px 48px; }
+    .section { padding: 22px 18px; margin-bottom: 16px; }
+    .section h2 { font-size: 21px; }
+    footer.site-foot { padding: 36px 16px 28px; }
+  }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="status-widget" id="status-widget" tabindex="0">
+    <div class="status-widget__panel">
+      <div class="status-widget__panel-inner">
+        <p class="status-widget__date"><b id="sw-date"></b><span id="sw-weekday"></span></p>
+        <p class="status-widget__state"><span class="status-widget__state-dot"></span><span id="sw-state-text"></span></p>
+        <ul class="status-widget__facts">
+          <li><b>開放</b><span>09:00–12:00<br />13:00–17:00</span></li>
+          <li><b>午休</b><span>12:00–13:00</span></li>
+          <li><b>公休</b><span>每週三</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="status-widget__tab">
+      <span class="status-widget__tab-icon" aria-hidden="true">⌂</span>
+      <span class="status-widget__tab-text" id="sw-tab-text">—</span>
+      <span class="status-widget__tab-chev" aria-hidden="true">‹</span>
+    </div>
+  </div>
+  <div class="masthead__inner">
+    <img class="logo" src="images/logo.png" alt="WildOne 野灣野生動物保育協會" />
+    <p class="eyebrow">
+      <a class="eyebrow-link" href="https://www.wildonetaiwan.org/" target="_blank" rel="noopener">WILDONE 野灣 <span aria-hidden="true">↗</span></a>
+    </p>
+    <h1>野灣保育探索館</h1>
+    <p class="lede">位於池上車站步行兩分鐘的保育教育空間，用標本、故事與特展，帶你認識野生動物救傷背後的議題。</p>
+  </div>
+  <img class="masthead-art" src="images/illust/eagle.png" alt="" aria-hidden="true" />
+</header>
+
+<div class="tabbar-wrap">
+  <nav class="tabbar" role="tablist" aria-label="野灣保育探索館 分頁">
+    <button class="tab" role="tab" id="tab-btn-intro" aria-controls="tab-intro" aria-selected="true">展館介紹</button>
+    <button class="tab" role="tab" id="tab-btn-exhibit" aria-controls="tab-exhibit" aria-selected="false">當期特展</button>
+    <button class="tab" role="tab" id="tab-btn-events" aria-controls="tab-events" aria-selected="false">最新活動</button>
+  </nav>
+</div>
+
+<main>
+  <!-- =========================================================
+       TAB 1 — 野灣保育探索館介紹
+  ========================================================== -->
+  <section id="tab-intro" class="panel is-active" role="tabpanel" aria-labelledby="tab-btn-intro">
+
+    <div class="section">
+      <figure class="hero-figure">
+        <img src="https://www.wildonetaiwan.org/sites/default/files/styles/w960/public/news/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-01-09%20111103.png?itok=yCHFI4TV"
+             alt="野灣保育探索館室內展場，可見動物標本展示櫃與互動展區" loading="lazy" />
+      </figure>
+      <p style="margin-top:1.25rem; font-size:1.05rem;">
+        身為救傷中心的我們深深明白，想要阻止動物受傷，<strong>單靠末端的包紮止血是不夠的</strong>；必須更主動積極地將保育觀念推展出去，才能從源頭上減少人類與動物之間的衝突。因此，野灣在距離池上火車站步行兩分鐘的大街上，規劃了「野灣保育探索館」這個空間，邀請大家一同認識野生動物，進一步關心、支持野生動物保育。
+      </p>
+    </div>
+
+    <div class="section">
+      <div class="section__head"><span class="pin">1</span><h2>常設展區</h2></div>
+      <div class="row">
+        <div class="row__text">
+          <p>展區中栩栩如生的動物標本，都是曾經傷病入院，卻不幸離世的野生動物。雖然死亡將動物的生命帶走，但經過標本師的巧手，讓牠們彷彿重新獲得靈魂，讓更多人看見傷病動物背後的議題，也使牠們的生命價值得以延續。</p>
+          <p>除了標本外，野生動物不同的食性配對、型態不一的動物便便，都等你來探索！</p>
+        </div>
+        <figure class="row__figure">
+          <img src="https://www.wildonetaiwan.org/sites/default/files/u10588/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-01-09%20141931.png"
+               alt="常設展區近拍，展示鳥類標本與致命的玻璃窗、待解的死因等主題看板" loading="lazy" />
+        </figure>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section__head"><span class="pin">2</span><h2>特展區</h2></div>
+      <div class="row reverse">
+        <div class="row__text">
+          <p>保育探索館規劃特展空間，與同樣關注生態保育的好夥伴們共同策劃特展，內容每半年更新一次。</p>
+          <p>近期特展介紹：獵場工作室策劃《饒了我吧－慢行南迴之森・與動物共生》，詳見「當期特展」分頁。</p>
+          <p><button class="btn ghost" type="button" data-goto="tab-btn-exhibit">查看當期特展 →</button></p>
+        </div>
+        <figure class="row__figure">
+          <img src="images/exhibit/specimens.jpg"
+               alt="饒了我吧特展展場，木製展示櫃中的動物骨骼標本與路殺議題展板" loading="lazy" />
+        </figure>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section__head"><span class="pin">3</span><h2>閱讀區</h2></div>
+      <div class="row">
+        <div class="row__text">
+          <p>野灣館藏兒童繪本、自然科普讀物、野生動物桌遊及教具。邀請您花些時間坐下來，好好享受閱讀一本書籍。</p>
+        </div>
+        <figure class="row__figure">
+          <img src="https://www.wildonetaiwan.org/sites/default/files/u10588/%E5%9C%96%E7%89%874.jpg"
+               alt="閱讀區擺放兒童繪本書架與花朵造型地墊坐墊" loading="lazy" />
+        </figure>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       TAB 2 — 當期特展
+  ========================================================== -->
+  <section id="tab-exhibit" class="panel" role="tabpanel" aria-labelledby="tab-btn-exhibit">
+
+    <div class="section">
+      <figure class="exhibit-hero">
+        <img src="images/exhibit/overview.jpg"
+             alt="饒了我吧特展展場全景，牆上掛著棲地破碎化展板，地上立著「生態路段 車輛慢行」交通標誌與動物造型地墊" />
+      </figure>
+      <div class="exhibit-intro">
+        <p class="eyebrow">當期特展</p>
+        <h2 style="font-size:1.9rem; margin:.35rem 0 1rem;">《饒了我吧－慢行南迴之森・與動物共生》</h2>
+        <p style="font-size:1.1rem; font-weight:700; color:var(--brown);">「當動物要通過馬路，牠們會遇到什麼危險？」</p>
+        <p>對我們而言，公路是通往美景、回家的路；但對野生動物而言，短短幾公尺的柏油路，可能就是一場生死考驗。</p>
+        <p>由臺東南迴在地團隊「獵場工作室」策劃，曾於2026台東博覽會亮相的《饒了我吧》，來到池上的野灣保育探索館啦！</p>
+        <p>透過真實的動物標本、趣味的互動設計、在地生態調查紀錄，帶你換上野生動物的視角，探索公路上那些容易被我們忽略的生命，以及道路與自然環境之間的關係。</p>
+        <p>邀請你放慢腳步，重新認識我們與野生動物共享的這片土地。讓每一條回家的路，對人與動物而言，都能是一條平安的路。</p>
+        <div class="date-badge">
+          <span class="eyebrow" style="color:var(--muted);">展期</span>
+          <b>2026/11/21 — 2027/11/21</b>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section__head"><span class="pin">✳</span><h2>展覽亮點</h2></div>
+      <div class="highlight-grid">
+        <div class="highlight-card">
+          <h3>翻開馬路上的生命故事</h3>
+          <p>馬路上那些被壓扁的動物，原本長什麼模樣？牠們又有著什麼樣的生活習性？透過翻頁式互動展品，認識那些與我們擦身而過的野生動物。</p>
+        </div>
+        <div class="highlight-card">
+          <h3>近距離觀察真實動物標本</h3>
+          <p>平時難得一見的野生動物，竟然就生活在人類道路的周圍！透過真實的動物標本與影像，認識南迴地區豐富的生物多樣性，也看見牠們面臨的生存危機。</p>
+        </div>
+        <div class="highlight-card">
+          <h3>公路上的生態調查秘密</h3>
+          <p>哪些動物最容易發生車禍？哪些路段特別危險？從南迴公路上的真實調查紀錄，一窺生態調查人員如何從動物留下的線索，找出道路上的危機。</p>
+        </div>
+        <div class="highlight-card">
+          <h3>考量動物需求的交通標誌</h3>
+          <p>看看為野生動物設計的交通標誌，想像一條對動物更友善的公路。你也可以學習如何回報路殺事件、協助救傷通報，成為守護野生動物的公民科學家！</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section__head"><h2>展場照片</h2></div>
+      <div class="gallery">
+        <a href="images/exhibit/rug-stories.jpg" target="_blank" rel="noopener"><img src="images/exhibit/rug-stories.jpg" alt="地墊上的動物造型翻頁展品，旁邊立牌寫著「歡迎動手翻閱地毯」" loading="lazy" /></a>
+        <a href="images/exhibit/specimens.jpg" target="_blank" rel="noopener"><img src="images/exhibit/specimens.jpg" alt="木製展示櫃中的動物骨骼標本，後方是路殺議題展板" loading="lazy" /></a>
+        <a href="images/exhibit/specimen-cases.jpg" target="_blank" rel="noopener"><img src="images/exhibit/specimen-cases.jpg" alt="多個木製展示櫃陳列蛇類與哺乳動物骨骼標本" loading="lazy" /></a>
+        <a href="images/exhibit/panels.jpg" target="_blank" rel="noopener"><img src="images/exhibit/panels.jpg" alt="展板引言「人與野生動物共享同一條回家的路」與邊緣效應圖解" loading="lazy" /></a>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section__head"><h2>特展資訊</h2></div>
+      <dl class="info-card">
+        <div class="full">
+          <dt>展覽名稱</dt>
+          <dd>饒了我吧－慢行南迴之森・與動物共生</dd>
+        </div>
+        <div>
+          <dt>展期</dt>
+          <dd>2026/11/21 – 2027/11/21</dd>
+        </div>
+        <div>
+          <dt>策展團隊</dt>
+          <dd>獵場工作室</dd>
+        </div>
+        <div>
+          <dt>地點</dt>
+          <dd>野灣保育探索館<br />（臺東縣池上鄉中山路227號）</dd>
+        </div>
+        <div>
+          <dt>開放時間</dt>
+          <dd>09:00–12:00、13:00–17:00<br />每週三公休</dd>
+        </div>
+        <div class="full">
+          <dt>入場方式</dt>
+          <dd>免費入場，自由觀展</dd>
+        </div>
+      </dl>
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       TAB 3 — 最新活動（Google 試算表）
+  ========================================================== -->
+  <section id="tab-events" class="panel" role="tabpanel" aria-labelledby="tab-btn-events">
+    <div class="section">
+      <div class="events-toolbar">
+        <p class="eyebrow">最新活動</p>
+      </div>
+
+      <div id="events-notice" class="notice" hidden></div>
+      <ul id="events-list" class="event-list" aria-live="polite"></ul>
+      <div id="events-empty" class="empty-state" hidden>目前沒有即將舉辦的活動，請鎖定野灣的最新消息！</div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <p class="site-foot__eyebrow">參觀資訊</p>
+    <dl class="foot-grid">
+      <div>
+        <dt>開放時間</dt>
+        <dd>每日 09:00–12:00、13:00–17:00<br />每週三公休</dd>
+      </div>
+      <div>
+        <dt>費用</dt>
+        <dd>免費參觀</dd>
+      </div>
+      <div>
+        <dt>地點</dt>
+        <dd>台東縣池上鄉中山路227號<br />（距池上火車站步行 2 分鐘）</dd>
+      </div>
+      <div>
+        <dt>備註</dt>
+        <dd>同時段可容納約 20 人<br />櫃台人員提供導覽解說服務</dd>
+      </div>
+    </dl>
+    <a class="btn" href="https://maps.app.goo.gl/tbfVq9PC3Ne2NCno8" target="_blank" rel="noopener">開啟 Google 地圖 →</a>
+
+    <div class="site-foot__divider"></div>
+
+    <p class="site-foot__eyebrow">聯絡我們</p>
+    <div class="site-foot__contact">
+      <strong>野灣保育探索館</strong>
+      <span>電話：<a href="tel:089862368">089-862368</a></span>
+      <span>信箱：<a href="mailto:wildone@wildonetaiwan.org">wildone@wildonetaiwan.org</a></span>
+    </div>
+
+    <p class="site-foot__about"><a href="https://www.wildonetaiwan.org/" target="_blank" rel="noopener">認識野灣：野灣官方網站 ↗</a></p>
+
+    <p class="site-foot__legal">社團法人臺灣野灣野生動物保育協會・野灣保育探索館｜台東縣池上鄉中山路227號</p>
+  </div>
+</footer>
+
+<!-- Event detail modal -->
+<div class="modal-backdrop" id="modal-backdrop" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal__wrap">
+      <button class="modal__close" id="modal-close" aria-label="關閉">✕</button>
+      <img class="modal__img" id="modal-img" src="" alt="" />
+      <div class="modal__body">
+        <h3 class="modal__title" id="modal-title"></h3>
+        <p class="modal__date" id="modal-date"></p>
+        <p class="modal__brief" id="modal-brief" hidden></p>
+        <ul class="modal__facts" id="modal-facts"></ul>
+        <div class="modal__actions">
+          <div class="modal__link" id="modal-link-wrap" hidden></div>
+          <button type="button" class="btn ghost" id="modal-share">分享這個活動 ⤴</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------------------------------------------------
+     Tabs
+  --------------------------------------------------------- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+  var panels = {
+    "tab-btn-intro": document.getElementById("tab-intro"),
+    "tab-btn-exhibit": document.getElementById("tab-exhibit"),
+    "tab-btn-events": document.getElementById("tab-events")
+  };
+
+  // 三個分頁各自對應一段網址（例如 .../#exhibit），切換分頁時網址列會
+  // 跟著換，這樣同事之後也能直接分享「當期特展」或「最新活動」的專屬
+  // 連結，打開就直接顯示那一頁，不用再自己點一次。
+  var TAB_HASH = {
+    "tab-btn-intro": "intro",
+    "tab-btn-exhibit": "exhibit",
+    "tab-btn-events": "events"
+  };
+  var HASH_TAB = { intro: "tab-btn-intro", exhibit: "tab-btn-exhibit", events: "tab-btn-events" };
+
+  function scrollToTop() {
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+  }
+
+  function activate(id, opts) {
+    opts = opts || {};
+    tabs.forEach(function (t) {
+      var on = t.id === id;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      panels[t.id].classList.toggle("is-active", on);
+    });
+    if (id === "tab-btn-events") loadEvents();
+    if (!opts.skipHistory) {
+      var h = TAB_HASH[id];
+      if (h && location.hash.replace(/^#/, "") !== h) {
+        history.pushState({ tab: id }, "", "#" + h);
+      }
+    }
+    if (!opts.skipScroll) scrollToTop();
+  }
+
+  tabs.forEach(function (t) {
+    t.addEventListener("click", function () { activate(t.id); });
+  });
+  document.querySelectorAll("[data-goto]").forEach(function (el) {
+    el.addEventListener("click", function () { activate(el.getAttribute("data-goto")); });
+  });
+
+  // 瀏覽器上一頁／下一頁按鈕也要能正確切換分頁
+  window.addEventListener("popstate", function () {
+    var h = location.hash.replace(/^#/, "");
+    if (HASH_TAB[h]) {
+      activate(HASH_TAB[h], { skipHistory: true });
+    } else if (h.indexOf("event=") === 0) {
+      activate("tab-btn-events", { skipHistory: true });
+    } else {
+      activate("tab-btn-intro", { skipHistory: true });
+    }
+  });
+
+  /* ---------------------------------------------------------
+     右上角開館狀態小標籤
+     ------------------------------------------------------
+     規則：每週三公休；開館日 09:00–12:00、13:00–17:00
+           （12:00–13:00 午休一小時）。
+     狀態：即將開館（開館日、09:00 前）
+           今日開館（開館日、09:00–12:00 或 13:00–17:00）
+           午休中　（開館日、12:00–13:00）
+           今日休館（每週三，或開館日 17:00 後）
+     時間一律以台灣時間（UTC+8）計算，不受訪客裝置時區影響。
+  --------------------------------------------------------- */
+  (function () {
+    var widget = document.getElementById("status-widget");
+    if (!widget) return;
+
+    var WEEKDAY = ["日", "一", "二", "三", "四", "五", "六"];
+    var STATE = {
+      soon:   { cls: "is-soon",   tab: "即將開館", full: "即將開館" },
+      open:   { cls: "is-open",   tab: "今日開館", full: "今日開館" },
+      lunch:  { cls: "is-lunch",  tab: "午休中",   full: "午休中（12:00–13:00）" },
+      closed: { cls: "is-closed", tab: "今日休館", full: "今日休館" }
+    };
+
+    function taipeiNow() {
+      var now = new Date();
+      var utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
+      return new Date(utcMs + 8 * 3600000); // UTC+8，台灣不使用夏令時間
+    }
+
+    var d = taipeiNow();
+    var wd = d.getDay();
+    var hm = d.getHours() + d.getMinutes() / 60;
+
+    var key;
+    if (wd === 3) key = "closed";
+    else if (hm < 9) key = "soon";
+    else if (hm < 12) key = "open";
+    else if (hm < 13) key = "lunch";
+    else if (hm < 17) key = "open";
+    else key = "closed";
+
+    var state = STATE[key];
+    widget.classList.add(state.cls);
+    document.getElementById("sw-tab-text").textContent = state.tab;
+    document.getElementById("sw-state-text").textContent = state.full;
+    document.getElementById("sw-date").textContent =
+      String(d.getMonth() + 1).padStart(2, "0") + "/" + String(d.getDate()).padStart(2, "0");
+    document.getElementById("sw-weekday").textContent = "星期" + WEEKDAY[wd];
+
+    // 觸控裝置沒有 hover，改用點按切換展開／收合；只綁在收合狀態的
+    // 標籤本身，避免展開後點卡片內文字也被當成「再點一次」而關掉。
+    var tabEl = widget.querySelector(".status-widget__tab");
+    tabEl.addEventListener("click", function (ev) {
+      ev.stopPropagation();
+      widget.classList.toggle("is-expanded");
+    });
+    // 點頁面其他地方時，如果目前是展開狀態就自動收合
+    document.addEventListener("click", function (ev) {
+      if (widget.classList.contains("is-expanded") && !widget.contains(ev.target)) {
+        widget.classList.remove("is-expanded");
+      }
+    });
+  })();
+
+  /* ---------------------------------------------------------
+     最新活動 — Google 試算表串接
+     ------------------------------------------------------
+     欄位是依「標題文字」讀取的，不是依欄位順序，所以你可以自由調整欄
+     位順序、插入新欄位，只要第一列的標題文字維持以下其中之一，網頁
+     就抓得到：
+       日期        (日期格式儲存格，例如 2026/8/1)
+       星期        (僅供你們自己對照用，網頁會自動由日期換算星期，不會讀這欄)
+       時間        (例如 14:00~14:50，可自由填文字)
+       主題        (活動名稱)
+       活動簡介    (點開活動卡片後顯示的簡短介紹，選填)
+       對象        (例如 親子／一般大眾)
+       報名連結    (可填網址；若不需要報名，填「自由入場」之類文字也可以，
+                    網頁會自動判斷是不是網址，不是網址就直接顯示文字)
+       圖片連結    (Google 雲端硬碟的「共用連結」即可，例如
+                    https://drive.google.com/file/d/檔案ID/view?usp=drive_link；
+                    網頁會自動轉換成可直接顯示的圖片網址。
+                    提醒：該圖片檔案本身也要設定「知道連結的使用者」可檢視，
+                    否則圖片無法公開顯示)
+       講者        (沒有講者可填「無」)
+       人數上限
+       費用
+
+     試算表本身要設定「共用」→「一般存取權」＝「知道連結的使用者」（檢視者）。
+
+     只要在試算表新增/刪除/修改活動列，此頁面下次載入時就會自動同步，
+     不需要重新編輯或上傳這個 HTML 檔案。
+  --------------------------------------------------------- */
+  var SHEET_ID = "1xUcLyv4rHpjr_3HpeCsivZyYx1dbukIgtz7t_L8GaBQ";
+  var SHEET_GID = "0";
+
+  var eventsLoaded = false;
+
+  // 示範資料：若試算表暫時讀取不到（例如共用權限被改回私人），
+  // 會自動改顯示這組示範資料，並在頁面上方顯示提示文字。
+  var DEMO_EVENTS = [
+    {
+      title: "（示範）秋日自然觀察體驗營",
+      date: "2026-09-06",
+      time: "14:00~15:00",
+      audience: "親子",
+      speaker: "野灣環境教育人員",
+      capacity: "20",
+      fee: "免費",
+      img: "https://www.wildonetaiwan.org/sites/default/files/u10588/%E5%9C%96%E7%89%874.jpg",
+      link: ""
+    }
+  ];
+
+  var WEEKDAY = ["日", "一", "二", "三", "四", "五", "六"];
+
+  function pad(n) { return String(n).padStart(2, "0"); }
+  function todayStr() {
+    var d = new Date();
+    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  }
+  function weekdayOf(dateStr) {
+    var p = dateStr.split("-");
+    if (p.length !== 3) return "";
+    var d = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
+    return WEEKDAY[d.getDay()];
+  }
+  function fmtDate(dateStr) {
+    var p = dateStr.split("-");
+    if (p.length !== 3) return dateStr;
+    return p[0] + "/" + p[1] + "/" + p[2];
+  }
+  // 活動清單日期牌用的精簡格式（不補零），例如 "8/5"
+  function fmtDateShort(dateStr) {
+    var p = dateStr.split("-");
+    if (p.length !== 3) return dateStr;
+    return parseInt(p[1], 10) + "/" + parseInt(p[2], 10);
+  }
+  function isUrl(s) { return /^https?:\/\//i.test((s || "").trim()); }
+
+  // 把 Google 雲端硬碟的「共用連結」轉成可直接當圖片顯示的網址
+  function driveImgUrl(url) {
+    if (!url) return "";
+    var m = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (m) return "https://lh3.googleusercontent.com/d/" + m[1];
+    return url;
+  }
+
+  function escapeHtml(s) {
+    var div = document.createElement("div");
+    div.textContent = s || "";
+    return div.innerHTML;
+  }
+
+  // 圖片載入失敗時（例如 Google 雲端硬碟檔案還沒開放公開檢視），
+  // 改顯示素色底圖，而不是瀏覽器預設的「破圖」圖示。
+  var BLANK_IMG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'></svg>";
+  function onImgError(imgEl) {
+    imgEl.onerror = function () {
+      imgEl.onerror = null;
+      imgEl.src = BLANK_IMG;
+    };
+  }
+
+  function renderEvents(list, isDemo) {
+    var listEl = document.getElementById("events-list");
+    var empty = document.getElementById("events-empty");
+    var notice = document.getElementById("events-notice");
+
+    if (isDemo) {
+      notice.hidden = false;
+      notice.innerHTML = "<strong>目前讀不到 Google 試算表。</strong> 顯示示範活動，僅供版面預覽。請確認試算表共用權限是否為「知道連結的使用者可檢視」，或參考「最新活動-google試算表設定說明.md」排查。";
+    } else {
+      notice.hidden = true;
+    }
+
+    // 分享連結：網址帶著 #event=... 進來時，直接彈出對應的活動卡片，
+    // 即使該活動已經不在「即將舉辦」清單裡也一樣能開（分享出去的連結才不會失效）。
+    if (location.hash.indexOf("#event=") === 0) {
+      var wantedKey = decodeURIComponent(location.hash.slice("#event=".length));
+      var matched = list.filter(function (e) { return e.title && e.date; })
+        .find(function (e) { return eventKey(e) === wantedKey; });
+      if (matched) openModal(matched);
+    }
+
+    var today = todayStr();
+    var upcoming = list
+      .filter(function (e) { return e.title && e.date; })
+      .filter(function (e) { return e.date >= today; })
+      .sort(function (a, b) {
+        if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+        return (a.time || "") < (b.time || "") ? -1 : (a.time || "") > (b.time || "") ? 1 : 0;
+      });
+
+    listEl.innerHTML = "";
+    if (upcoming.length === 0) {
+      empty.hidden = false;
+      return;
+    }
+    empty.hidden = true;
+
+    upcoming.forEach(function (e) {
+      var li = document.createElement("li");
+      var img = driveImgUrl(e.img);
+      li.innerHTML =
+        '<button type="button" class="event-row">' +
+          '<span class="event-row__date"><b>' + fmtDateShort(e.date) + '</b><span>週' + weekdayOf(e.date) + '</span></span>' +
+          (img ? '<img class="event-row__img" src="' + img + '" alt="" loading="lazy" />'
+               : '<span class="event-row__img" aria-hidden="true"></span>') +
+          '<span class="event-row__main">' +
+            '<span class="event-row__title">' + escapeHtml(e.title) + '</span>' +
+            (e.time ? '<span class="event-row__time">' + escapeHtml(e.time) + '</span>' : '') +
+          '</span>' +
+          '<span class="event-row__chev" aria-hidden="true">›</span>' +
+        '</button>';
+      li.querySelector(".event-row").addEventListener("click", function () { openModal(e); });
+      var rowImg = li.querySelector(".event-row__img");
+      if (rowImg && rowImg.tagName === "IMG") onImgError(rowImg);
+      listEl.appendChild(li);
+    });
+  }
+
+  var currentModalEvent = null;
+
+  // 活動的分享連結用「日期＋主題的短雜湊」組成一把很短的識別碼，
+  // 不用串接完整活動名稱、也不需要額外呼叫任何縮網址服務（那種服務
+  // 常常沒開放讓網頁用 JS 直接呼叫，會被瀏覽器的 CORS 擋掉，等於是
+  // 引入一個網頁不受控的外部依賴）。開啟這個連結時，會自動切到
+  // 「最新活動」分頁並直接彈出該活動的卡片。
+  function shortHash(str) {
+    var h = 5381;
+    for (var i = 0; i < str.length; i++) {
+      h = ((h << 5) + h + str.charCodeAt(i)) | 0; // djb2
+    }
+    return (h >>> 0).toString(36);
+  }
+  function eventKey(e) { return e.date.replace(/-/g, "") + "-" + shortHash(e.title); }
+  function shareUrlFor(e) {
+    return location.origin + location.pathname + "#event=" + eventKey(e);
+  }
+  function shareEvent(e) {
+    var url = shareUrlFor(e);
+    var shareBtn = document.getElementById("modal-share");
+    var shareText = "【野灣保育探索館活動】" + e.title +
+      (e.brief ? "\n\n" + e.brief : "") +
+      "\n\n活動連結：" + url;
+    if (navigator.share) {
+      navigator.share({ title: e.title, text: shareText }).catch(function () {});
+      return;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(shareText).then(function () {
+        var original = shareBtn.textContent;
+        shareBtn.textContent = "已複製分享內容 ✓";
+        setTimeout(function () { shareBtn.textContent = original; }, 1800);
+      }).catch(function () { window.prompt("複製以下內容分享：", shareText); });
+      return;
+    }
+    window.prompt("複製以下內容分享：", shareText);
+  }
+  document.getElementById("modal-share").addEventListener("click", function () {
+    if (currentModalEvent) shareEvent(currentModalEvent);
+  });
+
+  function openModal(e) {
+    currentModalEvent = e;
+    var img = driveImgUrl(e.img);
+    var imgEl = document.getElementById("modal-img");
+    onImgError(imgEl);
+    imgEl.src = img || BLANK_IMG;
+    imgEl.style.display = img ? "" : "none";
+    imgEl.alt = e.title || "";
+
+    document.getElementById("modal-title").textContent = e.title || "";
+    document.getElementById("modal-date").textContent =
+      fmtDate(e.date) + "（" + weekdayOf(e.date) + "）" + (e.time ? " ｜ " + e.time : "");
+
+    var briefEl = document.getElementById("modal-brief");
+    if (e.brief) {
+      briefEl.textContent = e.brief;
+      briefEl.hidden = false;
+    } else {
+      briefEl.hidden = true;
+    }
+
+    var facts = [
+      ["對象", e.audience],
+      ["講者", e.speaker],
+      ["名額", e.capacity ? e.capacity + " 人" : ""],
+      ["費用", e.fee]
+    ].filter(function (f) { return f[1]; });
+    document.getElementById("modal-facts").innerHTML = facts.map(function (f) {
+      return "<li><b>" + f[0] + "</b><span>" + escapeHtml(f[1]) + "</span></li>";
+    }).join("");
+
+    var linkWrap = document.getElementById("modal-link-wrap");
+    if (e.link && isUrl(e.link)) {
+      linkWrap.hidden = false;
+      linkWrap.innerHTML = '<a class="btn" href="' + e.link + '" target="_blank" rel="noopener">立即報名 →</a>';
+    } else if (e.link) {
+      linkWrap.hidden = false;
+      linkWrap.innerHTML = '<span style="color:var(--muted); font-size:.9rem;">報名方式：' + escapeHtml(e.link) + '</span>';
+    } else {
+      linkWrap.hidden = true;
+      linkWrap.innerHTML = "";
+    }
+
+    document.getElementById("modal-backdrop").hidden = false;
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal() {
+    document.getElementById("modal-backdrop").hidden = true;
+    document.body.style.overflow = "";
+  }
+  document.getElementById("modal-close").addEventListener("click", closeModal);
+  document.getElementById("modal-backdrop").addEventListener("click", function (ev) {
+    if (ev.target === this) closeModal();
+  });
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape") closeModal();
+  });
+
+  function parseGvizDate(cell) {
+    // gviz 對日期欄位會回傳 "Date(2026,7,1)" 這種字串（月份從 0 開始）
+    if (!cell) return "";
+    var v = cell.v;
+    if (v == null) return "";
+    if (typeof v === "string" && v.indexOf("Date(") === 0) {
+      var m = v.match(/Date\((\d+),(\d+),(\d+)/);
+      if (m) return m[1] + "-" + pad(parseInt(m[2], 10) + 1) + "-" + pad(parseInt(m[3], 10));
+    }
+    return String(v).trim();
+  }
+  function cellText(cell) {
+    if (!cell || cell.v == null) return "";
+    return String(cell.v).trim();
+  }
+
+  function loadEvents() {
+    if (eventsLoaded) return;
+    eventsLoaded = true;
+
+    if (!SHEET_ID) {
+      renderEvents(DEMO_EVENTS, true);
+      return;
+    }
+
+    var url = "https://docs.google.com/spreadsheets/d/" + SHEET_ID +
+               "/gviz/tq?tqx=out:json&gid=" + SHEET_GID;
+
+    fetch(url)
+      .then(function (res) { return res.text(); })
+      .then(function (text) {
+        var json = JSON.parse(text.substring(text.indexOf("(") + 1, text.lastIndexOf(")")));
+        var cols = (json.table && json.table.cols) || [];
+        // 依標題文字對應欄位位置，不依賴欄位順序
+        var colIndex = {};
+        cols.forEach(function (c, i) { if (c.label) colIndex[c.label.trim()] = i; });
+        function byName(row, label) {
+          var idx = colIndex[label];
+          return idx == null ? null : (row.c || [])[idx];
+        }
+        var rows = (json.table && json.table.rows) || [];
+        var list = rows.map(function (r) {
+          return {
+            date: parseGvizDate(byName(r, "日期")),
+            time: cellText(byName(r, "時間")),
+            title: cellText(byName(r, "主題")),
+            brief: cellText(byName(r, "活動簡介")),
+            audience: cellText(byName(r, "對象")),
+            link: cellText(byName(r, "報名連結")),
+            img: cellText(byName(r, "圖片連結")),
+            speaker: cellText(byName(r, "講者")),
+            capacity: cellText(byName(r, "人數上限")),
+            fee: cellText(byName(r, "費用"))
+          };
+        });
+        if (list.filter(function (e) { return e.title; }).length === 0) {
+          renderEvents(DEMO_EVENTS, true);
+        } else {
+          renderEvents(list, false);
+        }
+      })
+      .catch(function () {
+        renderEvents(DEMO_EVENTS, true);
+      });
+  }
+
+  // 網頁載入時依網址的 # 決定要先顯示哪個分頁：
+  //   #exhibit / #events → 直接開對應分頁
+  //   #event=...         → 分享連結，切到「最新活動」並載入試算表，
+  //                        載入完成後 renderEvents() 會負責彈出對應的活動卡片
+  //   都沒有             → 維持預設的「展館介紹」
+  // 這段要放在 SHEET_ID 已經賦值「之後」才能執行，不然 loadEvents() 讀到的
+  // SHEET_ID 會是 undefined，直接掉進示範資料（曾經發生過的實際 bug）。
+  (function () {
+    var h = location.hash.replace(/^#/, "");
+    if (HASH_TAB[h] && h !== "intro") {
+      activate(HASH_TAB[h], { skipHistory: true, skipScroll: true });
+    } else if (h.indexOf("event=") === 0) {
+      activate("tab-btn-events", { skipHistory: true, skipScroll: true });
+    }
+  })();
+})();
+</script>
+</body>
+</html>
