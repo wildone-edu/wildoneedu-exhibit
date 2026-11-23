@@ -179,6 +179,8 @@
   .hero-figure img { width: 100%; border-radius: 12px; }
   /* 特展：主視覺、亮點卡片、展場照片 */
   .exhibit-hero img { width: 100%; border-radius: 12px; margin-bottom: 1.75rem; }
+  .exhibit-head { margin-bottom: 1.5rem; }
+  .exhibit-head .exhibit-quote { margin: 0; }
   .exhibit-intro { max-width: 46rem; }
   .exhibit-intro p { margin: 0; }
   .exhibit-intro p + p { margin-top: .75rem; }
@@ -190,7 +192,7 @@
   .highlight-card p { margin: 0; font-size: 15.5px; }
   .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
   @media (max-width: 560px) { .gallery { grid-template-columns: 1fr; } }
-  .gallery a { display: block; border-radius: 12px; overflow: hidden; aspect-ratio: 4 / 3; background: var(--bg); }
+  .gallery a { display: block; border-radius: 12px; overflow: hidden; aspect-ratio: 3 / 2; background: var(--bg); }
   .gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform .25s; }
   .gallery a:hover img { transform: scale(1.03); }
 
@@ -318,7 +320,7 @@
   /* ===== 手機 ===== */
   @media (max-width: 720px) {
     .br-desktop { display: none; }
-    .events-toolbar .eyebrow, .exhibit-intro > .eyebrow { font-size: 16px; }
+    .events-toolbar .eyebrow, .exhibit-head > .eyebrow { font-size: 16px; }
     .masthead { padding: 24px 16px 20px; }
     .masthead__inner { padding-right: 0; }
     .logo { width: 150px; margin-bottom: 14px; }
@@ -395,8 +397,8 @@
     /* 最新活動不再縮窄，和上方分頁按鈕左右切齊 */
     #tab-events .section { max-width: none; }
     /* 「最新活動」「當期特展」區塊小標放大 */
-    .events-toolbar .eyebrow, .exhibit-intro > .eyebrow { font-size: 20px; gap: 14px; }
-    .events-toolbar .eyebrow::before, .exhibit-intro > .eyebrow::before { width: 38px; height: 6px; }
+    .events-toolbar .eyebrow, .exhibit-head > .eyebrow { font-size: 20px; gap: 14px; }
+    .events-toolbar .eyebrow::before, .exhibit-head > .eyebrow::before { width: 38px; height: 6px; }
     .event-row { padding-left: .5rem; padding-right: .5rem; }
     .exhibit-intro { max-width: 52rem; }
     .highlight-grid { gap: 20px; }
@@ -508,8 +510,8 @@
           <p><button class="btn ghost" type="button" data-goto="tab-btn-exhibit">查看當期特展 →</button></p>
         </div>
         <figure class="row__figure">
-          <img src="images/exhibit/specimens.jpg"
-               alt="饒了我吧特展展場，木製展示櫃中的動物骨骼標本與路殺議題展板" loading="lazy" />
+          <img src="images/exhibit/photo-00.jpg"
+               alt="饒了我吧特展展場，木製展示櫃中的動物骨骼標本，後方掛著路殺議題展板" loading="lazy" />
         </figure>
       </div>
     </div>
@@ -535,14 +537,16 @@
   <section id="tab-exhibit" class="panel" role="tabpanel" aria-labelledby="tab-btn-exhibit">
 
     <div class="section">
-      <figure class="exhibit-hero">
-        <img src="images/exhibit/overview.jpg"
-             alt="饒了我吧特展展場全景，牆上掛著棲地破碎化展板，地上立著「生態路段 車輛慢行」交通標誌與動物造型地墊" />
-      </figure>
-      <div class="exhibit-intro">
+      <div class="exhibit-head">
         <p class="eyebrow">當期特展</p>
         <h2 style="font-size:1.9rem; margin:.35rem 0 1rem;">《饒了我吧－慢行南迴之森・與動物共生》</h2>
-        <p style="font-size:1.1rem; font-weight:700; color:var(--brown);">「當動物要通過馬路，牠們會遇到什麼危險？」</p>
+        <p class="exhibit-quote" style="font-size:1.1rem; font-weight:700; color:var(--brown);">「當動物要通過馬路，牠們會遇到什麼危險？」</p>
+      </div>
+      <figure class="exhibit-hero">
+        <img src="images/exhibit/photo-01.jpg"
+             alt="饒了我吧特展入口，懸掛著《饒了我吧》主視覺布幔與「劃開森林的線」展板" />
+      </figure>
+      <div class="exhibit-intro">
         <p>對我們而言，公路是通往美景、回家的路；但對野生動物而言，短短幾公尺的柏油路，可能就是一場生死考驗。</p>
         <p>由臺東南迴在地團隊「獵場工作室」策劃，曾於2026台東博覽會亮相的《饒了我吧》，來到池上的野灣保育探索館啦！</p>
         <p>透過真實的動物標本、趣味的互動設計、在地生態調查紀錄，帶你換上野生動物的視角，探索公路上那些容易被我們忽略的生命，以及道路與自然環境之間的關係。</p>
@@ -579,10 +583,10 @@
     <div class="section">
       <div class="section__head"><h2>展場照片</h2></div>
       <div class="gallery">
-        <a href="images/exhibit/rug-stories.jpg" target="_blank" rel="noopener"><img src="images/exhibit/rug-stories.jpg" alt="地墊上的動物造型翻頁展品，旁邊立牌寫著「歡迎動手翻閱地毯」" loading="lazy" /></a>
-        <a href="images/exhibit/specimens.jpg" target="_blank" rel="noopener"><img src="images/exhibit/specimens.jpg" alt="木製展示櫃中的動物骨骼標本，後方是路殺議題展板" loading="lazy" /></a>
-        <a href="images/exhibit/specimen-cases.jpg" target="_blank" rel="noopener"><img src="images/exhibit/specimen-cases.jpg" alt="多個木製展示櫃陳列蛇類與哺乳動物骨骼標本" loading="lazy" /></a>
-        <a href="images/exhibit/panels.jpg" target="_blank" rel="noopener"><img src="images/exhibit/panels.jpg" alt="展板引言「人與野生動物共享同一條回家的路」與邊緣效應圖解" loading="lazy" /></a>
+        <a href="images/exhibit/photo-02.jpg" target="_blank" rel="noopener"><img src="images/exhibit/photo-02.jpg" alt="地墊上的動物造型翻頁展品" loading="lazy" /></a>
+        <a href="images/exhibit/photo-03.jpg" target="_blank" rel="noopener"><img src="images/exhibit/photo-03.jpg" alt="木製標本展示櫃與黃色的動物警示交通標誌" loading="lazy" /></a>
+        <a href="images/exhibit/photo-04.jpg" target="_blank" rel="noopener"><img src="images/exhibit/photo-04.jpg" alt="壓克力展示盒中的動物毛皮與頭骨標本" loading="lazy" /></a>
+        <a href="images/exhibit/photo-05.jpg" target="_blank" rel="noopener"><img src="images/exhibit/photo-05.jpg" alt="觀眾坐在展場中閱讀展品" loading="lazy" /></a>
       </div>
     </div>
 
